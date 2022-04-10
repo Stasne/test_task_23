@@ -1,6 +1,5 @@
 #include "task12.h"
 
-#include <bitset>
 #include <iostream>
 
 namespace saber_test

@@ -1,6 +1,5 @@
 #ifndef __TASKS_H__
 #define __TASKS_H__
-#include <string>
 
 namespace saber_test
 {
