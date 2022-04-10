@@ -33,7 +33,7 @@ public:
     void Deserialize(FILE* file); // загрузка из файла (файл открыт с помощью fopen(path, "rb"))
 
     static List generateLinkedList(int count = 10);
-    friend void workOnList(); // testing purposes
+    friend void testWorkOnList(); // testing purposes
 
 private:
     ListNode* head;
@@ -41,6 +41,6 @@ private:
     int       count;
     void      applyToEachNode(std::function<void(ListNode*)> func) const;
 };
-void workOnList();
+void testWorkOnList();
 } // namespace saber_test
 #endif // __LIST_H__

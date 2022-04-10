@@ -83,12 +83,6 @@ void List::Deserialize(FILE* file)
         uint32_t data_size;
     } sHeader;
 
-    fseek(file, 0, SEEK_END);
-    auto fsize = ftell(file);
-    fseek(file, 0, SEEK_SET);
-    if (fsize < sizeof(sHeader))
-        return;
-
     uint32_t node_id = 1;
 
     std::unordered_map<uint32_t, ListNode*> idToPtrMap;
@@ -114,14 +108,14 @@ void List::Deserialize(FILE* file)
         node->rand = idToPtrMap[rand_id];
     };
 
-    for (; ftell(file) < fsize; ++node_id)
+    while (fread(&sHeader, sizeof(sHeader), 1, file) == 1)
     {
-        fread(&sHeader, sizeof(sHeader), 1, file);
         std::string readStr;
         readStr.resize(sHeader.data_size);
 
         fread(readStr.data(), sHeader.data_size, 1, file);
         appendNode(std::move(readStr), sHeader.rand_id);
+        ++node_id;
     }
     count = node_id - 1;
 }
@@ -165,7 +159,7 @@ void printLinkedList(ListNode* node)
     std::cout << std::endl;
 }
 
-void workOnList()
+void testWorkOnList()
 {
     List list = List::generateLinkedList(1000);
     std::cout << "list before serialization: " << list.count << "\n";
