@@ -13,14 +13,13 @@ void printBinary(int number)
 }
 void removeDups(char* str)
 {
-    if (not std::strlen(str))
+    if (*str == '\0')
         return;
 
     for (char* second = str + 1; *second != '\0'; ++second)
     {
-        if (*str == *second)
-            continue;
-        *++str = *second;
+        if (*str != *second)
+            *++str = *second;
     }
     *++str = '\0';
 }
