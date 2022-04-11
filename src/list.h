@@ -19,12 +19,13 @@ public:
         : count(0)
     {
     }
-    List(const List&)   = delete;
-    List&       operator=(const List&) = delete;
-    List&       operator=(List&&) = default;
-    friend bool operator==(const List& lhs, const List& rhs);
-    List(List&&) = default;
+    List(List&&);
     ~List();
+    List(const List&) = delete;
+    List& operator=(List&&) = delete;
+    List& operator=(const List&) = delete;
+
+    friend bool operator==(const List& lhs, const List& rhs);
 
     /// @brief serializes given list to file.
     /// [{rand_id(uint32_t) - id of random node, data_size (uint32_t), data - data of node}]

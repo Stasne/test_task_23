@@ -3,9 +3,18 @@
 #include <iostream>
 #include <random>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 namespace saber_test
 {
+
+List::List(List&& rhs)
+    : head(std::exchange(rhs.head, nullptr))
+    , tail(std::exchange(rhs.tail, nullptr))
+    , count(std::exchange(rhs.count, 0))
+{
+}
+
 List::~List()
 {
     ListNode* current = head;
@@ -161,22 +170,20 @@ void printLinkedList(ListNode* node)
 
 void testWorkOnList()
 {
-    List list = List::generateLinkedList(1000);
+    List list = List::generateLinkedList(5);
+
     std::cout << "list before serialization: " << list.count << "\n";
-    // printLinkedList(list.head);
 
     FILE* file;
-
     file = fopen("serialized_list", "wb");
     list.Serialize(file);
     fclose(file);
 
-    file = fopen("serialized_list", "rb");
     List listRead;
+    file = fopen("serialized_list", "rb");
     listRead.Deserialize(file);
-    std::cout << "list adter deserialize: " << listRead.count << "\n";
-    // printLinkedList(listRead.head);
     fclose(file);
+    std::cout << "list after deserialize: " << listRead.count << "\n";
 
     assert(listRead == list);
     std::cout << "Succeeded serialization and deserialization\n";

@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     assert(strcmp(test1, "A B C DE FG H") == 0);
     saber_test::removeDups(test2);
     assert(strcmp(test2, "ABCDEFGFG H") == 0);
-    std::cout << "Success: " << std::endl;
+    std::cout << "Succeeded Task2" << std::endl;
     // THIRD
     std::cout << "\tTask3(List de/serialization): " << std::endl;
     saber_test::testWorkOnList();
